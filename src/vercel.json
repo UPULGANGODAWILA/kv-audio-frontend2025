@@ -1,6 +1,5 @@
 {
-    "rewrites":  [
-      {"source": "/(.*)", "destination": "/"}
-    ]
-  }
-// src/vercel.json updated
+  "rewrites":  [
+    {"source": "/(.*)", "destination": "/"}
+  ]
+}
