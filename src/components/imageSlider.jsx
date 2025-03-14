@@ -1,11 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function ImageSlider(props){
     const images = props.images;
    
-
-    console.log(images);
-    const [selectedImage, setSelectedImage] = useState(images);
+    const [selectedImage, setSelectedImage] = useState(images[0]);
     return(
         <div className="w-full flex flex-col items-center ">
             <img src={selectedImage} alt="product" className="w-full h-[300px] md:h-[500px] object-cover"/>
