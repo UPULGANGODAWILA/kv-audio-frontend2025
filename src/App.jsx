@@ -6,6 +6,7 @@
   import { Toaster } from "react-hot-toast";
   import RegisterPage from "./pages/register/register.jsx";
   import Testing from "./components/testing";
+ 
 
   
 
@@ -20,6 +21,7 @@
         <Route path="/admin/*" element={<AdminPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
+        
         <Route path="/*" element={<HomePage/>}/>
         
           

@@ -1,3 +1,4 @@
+import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 
@@ -19,6 +20,9 @@ export default function Header() {
         to="/items"
         className="text-[25px] font-bold m-1"
       >Items</Link>
+      <Link
+        to="/booking"
+        className="text-[25px] font-bold m-1 absolute right-3"> <FaShoppingCart/></Link>
     </header>
     
   );
