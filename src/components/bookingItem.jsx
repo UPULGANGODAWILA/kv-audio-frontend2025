@@ -6,6 +6,7 @@ import { addToCart } from "../pages/utils/cart";
 export default function BookingItem({ itemKey, qty, refresh }) {
 	const [item, setItem] = useState(null);
 	const [status, setStatus] = useState("loading"); // loading, success, error
+	
 
 	useEffect(() => {
 		if (status === "loading") {
