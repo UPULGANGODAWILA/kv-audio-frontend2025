@@ -6,7 +6,7 @@ import Gallery from "./gallery";
 import Contact from "./contact";
 import ErrorNotFound from "./error";
 import ProductOverview from "./productOverview.jsx";
-import BookingPage from "./bookingpage.jsx";
+import BookingPage from "./booking";
 
 export default function HomePage(){
   return(
