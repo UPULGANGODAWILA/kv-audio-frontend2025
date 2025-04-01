@@ -3,12 +3,19 @@ import "./login.css";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: (res) => {
+      console.log(res)
+    }
+  }
+  )
   function handleOnSubmit(e){
     e.preventDefault()
     console.log(email , password)
@@ -75,6 +82,9 @@ export default function LoginPage() {
           <button className="my-8 w-[300px] h-[50px] bg-[#efac38] text-2xl text-white rounded-lg">
             Login
           </button>
+          <div className="my-8 w-[300px] h-[50px] bg-[#efac38] text-2xl text-white rounded-lg" onClick={googleLogin}>
+            Login With Google
+            </div> 
         </div>
       </form>
     </div>
