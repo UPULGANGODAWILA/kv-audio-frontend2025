@@ -25,7 +25,7 @@ export default function RegisterPage() {
         phone : phone
     } ).then(()=>{
         toast.success("Registration Success")
-        navigate("/login")
+        navigate("/Login")
     }).catch((err)=>{
         toast.error(err?.response?.data?.error||"An error occured")
     })
@@ -36,7 +36,7 @@ export default function RegisterPage() {
       <form onSubmit={handleOnSubmit}>
         <div className="w-[400px] min-h-[600px] backdrop-blur-xl rounded-2xl flex flex-col items-center py-10 relative">
           <img
-            src="/Logo.png"
+            src="/logo.png"
             alt="logo"
             className="w-[100px] h-[100px] object-cover mb-6"
           />
