@@ -10,19 +10,33 @@ import { FiLogIn } from "react-icons/fi";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
-
-  const googleLogin = useGoogleLogin({
-    onSuccess: (res) => {
-      console.log(res)
+  const navigate = useNavigate();
+  const googleLogin = useGoogleLogin(
+    {
+      onSuccess : (res)=>{
+        console.log(res)
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/google`,{
+          accessToken : res.access_token
+        }).then((res)=>{
+          console.log(res)
+          toast.success("Login Success")
+          const user = res.data.user
+          localStorage.setItem("token",res.data.token)
+          if(user.role === "admin"){
+            navigate("/admin/")
+          }else{
+            navigate("/")
+          }
+        }).catch((err)=>{
+          console.log(err)
+        })
+      }
     }
-  }
   )
   function handleOnSubmit(e){
     e.preventDefault()
     console.log(email , password)
     const backendUrl = import.meta.env.VITE_BACKEND_URL
-   
 
     axios.post(`${backendUrl}/api/users/login`,
       {
@@ -35,10 +49,11 @@ export default function LoginPage() {
       toast.success("Login Success")
       const user = res.data.user
       localStorage.setItem("token",res.data.token)
-
-      if(user.emailVerified === false){
-       navigate("/verify-email")
-       return 
+      
+      if(user.emailVerified == false){
+        navigate("/verify-email")
+        return
+      }
       
       if(user.role === "admin"){
         navigate("/admin/")
