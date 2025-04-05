@@ -4,6 +4,8 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
+import { FiLogIn } from "react-icons/fi";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -33,6 +35,10 @@ export default function LoginPage() {
       toast.success("Login Success")
       const user = res.data.user
       localStorage.setItem("token",res.data.token)
+
+      if(user.emailVerified === false){
+       navigate("/verify-email")
+       return 
       
       if(user.role === "admin"){
         navigate("/admin/")
@@ -53,7 +59,7 @@ export default function LoginPage() {
       <form onSubmit={handleOnSubmit}>
         <div className="w-[400px] h-[400px] backdrop-blur-xl rounded-2xl flex justify-center items-center flex-col relative">
           <img
-            src="/Logo.png"
+            src="/logo.png"
             alt="logo"
             className="w-[100px] h-[100px] object-cover "
           />
@@ -79,11 +85,23 @@ export default function LoginPage() {
             }}
           />
 
-          <button className="my-8 w-[300px] h-[50px] bg-[#efac38] text-2xl text-white rounded-lg">
-            Login
-          </button>
-          <div className="my-8 w-[300px] h-[50px] bg-[#efac38] text-2xl text-white rounded-lg" onClick={googleLogin}>
-            Login With Google
+
+<button
+  className="my-8 w-[300px] h-[50px] bg-[#efac38] text-xl text-white font-semibold rounded-lg 
+             shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out 
+             transform hover:scale-105 hover:bg-[#d89a32] flex items-center justify-center space-x-2"
+>
+  <FiLogIn className="text-2xl" />
+  <span>Login</span>
+</button>
+
+          <div  className="my-8 w-[300px] h-[50px] bg-[#efac38] text-xl text-white font-semibold rounded-lg 
+             shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out 
+             transform hover:scale-105 hover:bg-[#d89a32] flex items-center justify-center space-x-3"
+  onClick={googleLogin}
+>
+  <FcGoogle className="text-3xl" /> 
+  <span>Login With Google</span>
             </div> 
         </div>
       </form>
