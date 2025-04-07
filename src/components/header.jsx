@@ -19,10 +19,10 @@ export default function Header() {
 					Home
 				</Link>
 				<Link to="/contact" className="hidden md:block text-[22px]  m-1">
-					contact
+					Contact
 				</Link>
 				<Link to="/gallery" className="hidden md:block text-[22px]  m-1">
-					gallery
+					Gallery
 				</Link>
 				{/* items */}
 				<Link to="/items" className="hidden md:block text-[22px]  m-1">
