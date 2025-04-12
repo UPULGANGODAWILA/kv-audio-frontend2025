@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 export default function Gallery() {
   const images = [
-    "/pubilc/logo.png",
-    "/images/img2.jpg",
-    "/images/img3.jpg",
-    "/images/img4.jpg",
-    "/images/img5.jpg",
-    "/images/img6.jpg",
+    "/01.jpg",
+    "/02.jpg",
+    "/03.jpg",
+    "/07.jpg",
+    "/04.jpg",
+    "/06.jpg",
   ];
 
   const [selectedImage, setSelectedImage] = useState(null);

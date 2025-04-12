@@ -22,10 +22,17 @@ export default function Header() {
 
     updateCartCount();
 
-    // Auto-refresh count if user is adding/removing items
+    // Update count every second to reflect cart changes in real-time
     const interval = setInterval(updateCartCount, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("cart"); // Clear cart on logout
+    setCartCount(0); // Reset UI count
+    window.location.href = "/login";
+  };
 
   return (
     <header className="w-full h-[70px] shadow-xl flex justify-between items-center px-4 bg-accent text-white relative">
@@ -36,8 +43,8 @@ export default function Header() {
         className="w-[60px] h-[60px] object-cover border-[3px] border-white rounded-full"
       />
 
-      {/* Desktop Nav */}
-      <div className="hidden md:flex space-x-6 text-[18px] items-center">
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex space-x-6 text-[20px] items-center">
         <Link to="/" className="hover:underline">Home</Link>
         <Link to="/contact" className="hover:underline">Contact</Link>
         <Link to="/gallery" className="hover:underline">Gallery</Link>
@@ -63,10 +70,7 @@ export default function Header() {
           </>
         ) : (
           <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              window.location.href = "/login";
-            }}
+            onClick={handleLogout}
             className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 flex items-center gap-2"
           >
             <FaSignOutAlt /> Logout
@@ -82,7 +86,7 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* Mobile menu toggle */}
+      {/* Mobile Menu Icon */}
       <GiHamburgerMenu
         className="md:hidden text-[28px]"
         onClick={() => setNavPanelOpen(true)}
