@@ -1,54 +1,95 @@
-import { useState } from "react";
-import { FaCartShopping } from "react-icons/fa6";
+import { useState, useEffect } from "react";
+import {
+  FaSignInAlt,
+  FaUserPlus,
+  FaShoppingCart,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import MobileNavPanel from "./mobileNavPanel";
 
 export default function Header() {
-	const [navPanelOpen, setNavPanelOpen] = useState(false);
-  const token = localStorage.getItem("token")
-	return (
-		<header className="w-full  h-[70px] shadow-xl flex justify-center items-center relative bg-accent text-white">
-			<img
-				src="/logo.png"
-				alt="logo"
-				className="w-[60px] h-[60px] object-cover border-[3px] absolute left-1 rounded-full"
-			/>
-			<div className="hidden w-[450px]  md:flex justify-evenly items-center">
-				<Link to="/" className="hidden md:block text-[22px]  m-1">
-					Home
-				</Link>
-				<Link to="/contact" className="hidden md:block text-[22px]  m-1">
-					Contact
-				</Link>
-				<Link to="/gallery" className="hidden md:block text-[22px]  m-1">
-					Gallery
-				</Link>
-				{/* items */}
-				<Link to="/items" className="hidden md:block text-[22px]  m-1">
-					Items
-				</Link>
-				<Link
-					to="/booking"
-					className="hidden md:block text-[22px] font-bold m-1 absolute right-24"
-				>
-					<FaCartShopping />
-				</Link>
-			</div>
-			<GiHamburgerMenu
-				className="absolute right-5 text-[24px] md:hidden"
-				onClick={() => {
-					setNavPanelOpen(true);
-				}}
-			/>
-      {token!=null&&<button className="hidden md:block absolute right-5 text-[24px]" onClick={()=>{
-        localStorage.removeItem("token")
-        window.location.href = "/login"
-      }}>
-        Logout
-      </button>}
-			<MobileNavPanel isOpen={navPanelOpen} setOpen={setNavPanelOpen} />
-			
-		</header>
-	);
+  const [navPanelOpen, setNavPanelOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || { orderedItems: [] };
+      setCartCount(cart.orderedItems.length);
+    };
+
+    updateCartCount();
+
+    // Auto-refresh count if user is adding/removing items
+    const interval = setInterval(updateCartCount, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <header className="w-full h-[70px] shadow-xl flex justify-between items-center px-4 bg-accent text-white relative">
+      {/* Logo */}
+      <img
+        src="/logo.png"
+        alt="logo"
+        className="w-[60px] h-[60px] object-cover border-[3px] border-white rounded-full"
+      />
+
+      {/* Desktop Nav */}
+      <div className="hidden md:flex space-x-6 text-[18px] items-center">
+        <Link to="/" className="hover:underline">Home</Link>
+        <Link to="/contact" className="hover:underline">Contact</Link>
+        <Link to="/gallery" className="hover:underline">Gallery</Link>
+        <Link to="/items" className="hover:underline">Items</Link>
+      </div>
+
+      {/* Auth + Cart */}
+      <div className="hidden md:flex space-x-3 items-center">
+        {!token ? (
+          <>
+            <Link
+              to="/login"
+              className="border px-4 py-1 rounded hover:bg-white hover:text-black flex items-center gap-2"
+            >
+              <FaSignInAlt /> Login
+            </Link>
+            <Link
+              to="/register"
+              className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 flex items-center gap-2"
+            >
+              <FaUserPlus /> Register
+            </Link>
+          </>
+        ) : (
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.href = "/login";
+            }}
+            className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 flex items-center gap-2"
+          >
+            <FaSignOutAlt /> Logout
+          </button>
+        )}
+
+        {/* Cart */}
+        <Link
+          to="/booking"
+          className="border px-4 py-1 rounded hover:bg-white hover:text-black flex items-center gap-2"
+        >
+          <FaShoppingCart /> Cart ({cartCount})
+        </Link>
+      </div>
+
+      {/* Mobile menu toggle */}
+      <GiHamburgerMenu
+        className="md:hidden text-[28px]"
+        onClick={() => setNavPanelOpen(true)}
+      />
+
+      {/* Mobile Navigation Panel */}
+      <MobileNavPanel isOpen={navPanelOpen} setOpen={setNavPanelOpen} />
+    </header>
+  );
 }
