@@ -45,9 +45,10 @@ export default function Header() {
         localStorage.removeItem("token")
         window.location.href = "/login"
       }}>
-        logout
+        Logout
       </button>}
 			<MobileNavPanel isOpen={navPanelOpen} setOpen={setNavPanelOpen} />
+			
 		</header>
 	);
 }

@@ -110,12 +110,12 @@ export default function LoginPage() {
   <span>Login</span>
 </button>
 
-          <div  className="my-8 w-[300px] h-[50px] bg-[#efac38] text-xl text-white font-semibold rounded-lg 
+          <div  className="my-8 w-[300px] h-[50px] bg-[#efac38] text-lg text-white font-semibold rounded-lg 
              shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out 
              transform hover:scale-105 hover:bg-[#d89a32] flex items-center justify-center space-x-3"
   onClick={googleLogin}
 >
-  <FcGoogle className="text-3xl" /> 
+  <FcGoogle className="text-xl" /> 
   <span>Login With Google</span>
             </div> 
         </div>

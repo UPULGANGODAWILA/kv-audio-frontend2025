@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 export default function AdminUsersPage() {
 	const [users, setUsers] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [currentPage, setCurrentPage] = useState(1);
+	const usersPerPage = 10;
 
 	useEffect(() => {
 		const fetchUsers = async () => {
@@ -17,7 +19,6 @@ export default function AdminUsersPage() {
 						},
 					}
 				);
-				console.log(res.data);
 				setUsers(res.data);
 			} catch (error) {
 				console.error("Error fetching users:", error);
@@ -25,25 +26,32 @@ export default function AdminUsersPage() {
 				setLoading(false);
 			}
 		};
-        if(loading){
-            fetchUsers();
-        }
+		if (loading) {
+			fetchUsers();
+		}
 	}, [loading]);
 
-    function handleBlockUser(email){
-    
-        const token = localStorage.getItem("token");
+	function handleBlockUser(email) {
+		const token = localStorage.getItem("token");
+		axios
+			.put(`${import.meta.env.VITE_BACKEND_URL}/api/users/block/${email}`, {}, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then(() => {
+				setLoading(true);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}
 
-        axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/users/block/${email}`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(()=>{
-            setLoading(true);
-        }).catch((err)=>{
-            console.error(err);
-        })
-    }
+	// Pagination logic
+	const indexOfLastUser = currentPage * usersPerPage;
+	const indexOfFirstUser = indexOfLastUser - usersPerPage;
+	const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+	const totalPages = Math.ceil(users.length / usersPerPage);
 
 	return (
 		<div className="p-6">
@@ -51,47 +59,76 @@ export default function AdminUsersPage() {
 			{loading ? (
 				<p className="text-center text-gray-600">Loading...</p>
 			) : (
-				<div className="overflow-x-auto">
-					<table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-						<thead className="bg-gray-200">
-							<tr>
-								<th className="px-4 py-2 text-left">Profile</th>
-								<th className="px-4 py-2 text-left">Name</th>
-								<th className="px-4 py-2 text-left">Email</th>
-								<th className="px-4 py-2 text-left">Role</th>
-								<th className="px-4 py-2 text-left">Phone</th>
-								<th className="px-4 py-2 text-left">Address</th>
-								<th className="px-4 py-2 text-left">Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							{users.map((user) => (
-								<tr key={user._id} className="border-t hover:bg-gray-100">
-									<td className="px-4 py-2">
-										<img
-											src={
-												user.profilePicture || "https://via.placeholder.com/50"
-											}
-											alt="Profile"
-											className="w-10 h-10 rounded-full"
-										/>
-									</td>
-									<td className="px-4 py-2">
-										{user.firstName} {user.lastName}
-									</td>
-									<td className="px-4 py-2">{user.email}</td>
-									<td className="px-4 py-2 capitalize">{user.role}</td>
-									<td className="px-4 py-2">
-										{user.phone || user.phoneNumber}
-									</td>
-									<td className="px-4 py-2">{user.address}</td>
-                                   
-									<td onClick={()=>{handleBlockUser(user.email)}} className="px-4 py-2 cursor-pointer">{user.isBlocked?"BLOCKED":"ACTIVE"}</td>
+				<>
+					<div className="overflow-x-auto">
+						<table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+							<thead className="bg-gray-200">
+								<tr>
+									<th className="px-4 py-2 text-left">Profile</th>
+									<th className="px-4 py-2 text-left">Name</th>
+									<th className="px-4 py-2 text-left">Email</th>
+									<th className="px-4 py-2 text-left">Role</th>
+									<th className="px-4 py-2 text-left">Phone</th>
+									<th className="px-4 py-2 text-left">Address</th>
+									<th className="px-4 py-2 text-left">Status</th>
 								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
+							</thead>
+							<tbody>
+								{currentUsers.map((user) => (
+									<tr key={user._id} className="border-t hover:bg-gray-100">
+										<td className="px-4 py-2">
+											<img
+												src={
+													user.profilePicture || "https://via.placeholder.com/50"
+												}
+												alt="Profile"
+												className="w-10 h-10 rounded-full"
+											/>
+										</td>
+										<td className="px-4 py-2">
+											{user.firstName} {user.lastName}
+										</td>
+										<td className="px-4 py-2">{user.email}</td>
+										<td className="px-4 py-2 capitalize">{user.role}</td>
+										<td className="px-4 py-2">
+											{user.phone || user.phoneNumber}
+										</td>
+										<td className="px-4 py-2">{user.address}</td>
+										<td
+											onClick={() => {
+												handleBlockUser(user.email);
+											}}
+											className="px-4 py-2 cursor-pointer"
+										>
+											{user.isBlocked ? "BLOCKED" : "ACTIVE"}
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+
+					{/* Pagination Controls */}
+					<div className="flex justify-center mt-4 space-x-2">
+						<button
+							className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+							onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+							disabled={currentPage === 1}
+						>
+							Previous
+						</button>
+						<span className="px-3 py-1">
+							Page {currentPage} of {totalPages}
+						</span>
+						<button
+							className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+							onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+							disabled={currentPage === totalPages}
+						>
+							Next
+						</button>
+					</div>
+				</>
 			)}
 		</div>
 	);

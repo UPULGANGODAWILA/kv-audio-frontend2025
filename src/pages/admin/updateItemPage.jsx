@@ -119,14 +119,15 @@ export default function UpdateItemPage() {
         <div className="space-x-4">
           <button
             onClick={handleUpdateItem}
-            className="w-full py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300"
+            className="w-full py-4 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300"
           >
             Update Item
           </button>
+        
           <button
             onClick={() => navigate("/admin/items")}
-            className="w-full py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300"
-          >
+             className="w-full py-5 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300">
+         
             Cancel
           </button>
         </div>
