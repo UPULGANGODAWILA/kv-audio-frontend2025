@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,7 +14,9 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Message sent!\n\nName: ${formData.name}\nEmail: ${formData.email}`);
+
+    toast.success('Message sent successfully!');
+
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -29,7 +32,7 @@ export default function Contact() {
 
           <div>
             <h4 className="font-semibold">📞 Phone</h4>
-            <p className="text-indigo-100">+94 77 123 4567</p>
+            <p className="text-indigo-100">+94 77 9619005</p>
           </div>
 
           <div>
@@ -46,7 +49,7 @@ export default function Contact() {
 
           <div>
             <h4 className="font-semibold">📧 Email</h4>
-            <p className="text-indigo-100">contact@yourcompany.com</p>
+            <p className="text-indigo-100">upulkgangodawila1981.com</p>
           </div>
         </div>
 

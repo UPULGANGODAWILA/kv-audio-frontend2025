@@ -11,6 +11,7 @@ export default function BookingPage() {
     formatDate(new Date(Date.now() + 24 * 60 * 60 * 1000))
   );
   const [total, setTotal] = useState(0);
+  const shipping = 0;
 
   const daysBetween = Math.max(
     (new Date(endingDate) - new Date(startingDate)) / (1000 * 60 * 60 * 24),
@@ -70,68 +71,83 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       <h1 className="text-2xl font-bold text-accent mt-4">Create Booking</h1>
 
-      {/* Date Pickers */}
-      <div className="w-full max-w-md flex flex-col items-center gap-4 mt-6">
-        <label className="flex flex-col w-full">
-          <span className="text-accent font-semibold">Starting Date:</span>
-          <input
-            type="date"
-            value={startingDate}
-            onChange={(e) => setStartingDate(e.target.value)}
-            className="border border-secondary rounded-md p-2"
-          />
-        </label>
-        <label className="flex flex-col w-full">
-          <span className="text-accent font-semibold">Ending Date:</span>
-          <input
-            type="date"
-            value={endingDate}
-            onChange={(e) => setEndingDate(e.target.value)}
-            className="border border-secondary rounded-md p-2"
-          />
-        </label>
-        <p className="text-accent font-medium">Total Days: {daysBetween}</p>
-      </div>
+      <div className="flex flex-col lg:flex-row w-full max-w-6xl gap-8 mt-6 px-4">
+        {/* Left Side - Booking Details and Items */}
+        <div className="w-full lg:w-2/3">
+          {/* Date Pickers */}
+          <div className="flex flex-col md:flex-row gap-3">
+            <label className="flex flex-col w-full">
+              <span className="text-accent font-semibold">Starting Date:</span>
+              <input
+                type="date"
+                value={startingDate}
+                onChange={(e) => setStartingDate(e.target.value)}
+                className="border border-secondary rounded-md p-2"
+              />
+            </label>
+            <label className="flex flex-col w-full">
+              <span className="text-accent font-semibold">Ending Date:</span>
+              <input
+                type="date"
+                value={endingDate}
+                onChange={(e) => setEndingDate(e.target.value)}
+                className="border border-secondary rounded-md p-2"
+              />
+            </label>
+          </div>
+          <p className="text-accent font-medium mt-2">
+            Total Days: {daysBetween}
+          </p>
 
-      {/* Booking Items */}
-      <div className="w-full max-w-2xl flex flex-col items-center mt-6">
-        {cart.orderedItems.length === 0 ? (
-          <p className="text-gray-500 text-lg">No items in cart</p>
-        ) : (
-          cart.orderedItems.map((item) => (
-            <BookingItem
-              key={item.key}
-              itemKey={item.key}
-              qty={item.qty}
-              refresh={reloadCart}
-            />
-          ))
-        )}
-      </div>
+          {/* Items List */}
+          <div className="mt-6">
+            {cart.orderedItems.length === 0 ? (
+              <p className="text-gray-500 text-lg">No items in cart</p>
+            ) : (
+              cart.orderedItems.map((item) => (
+                <BookingItem
+                  key={item.key}
+                  itemKey={item.key}
+                  qty={item.qty}
+                  refresh={reloadCart}
+                />
+              ))
+            )}
+          </div>
+        </div>
 
-      {/* Total */}
-      <div className="w-full flex justify-center mt-4">
-        <p className="text-accent font-semibold text-lg">
-          Total: Rs. {total.toFixed(2)}
-        </p>
-      </div>
-
-      {/* Button */}
-      <div className="w-full flex justify-center mt-6 mb-6">
-        <button
-          className={`px-4 py-2 rounded-md text-white ${
-            cart.orderedItems.length === 0
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-accent hover:bg-accent-dark"
-          }`}
-          onClick={handleBookingCreation}
-          disabled={cart.orderedItems.length === 0}
-        >
-          Create Booking
-        </button>
+        {/* Right Side - Order Summary */}
+        <div className="w-full lg:w-1/3 bg-gray-100 border rounded-md p-4 shadow-md h-fit">
+          <h2 className="text-lg font-semibold border-b pb-2 mb-4">
+            Booking Summary
+          </h2>
+          <div className="flex justify-between mb-2">
+            <span>Products ({cart.orderedItems.length})</span>
+            <span>Rs. {total.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between mb-2">
+            <span>Delivery</span>
+            <span>Rs. {shipping.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between font-semibold mt-2 border-t pt-2">
+            <span>Total amount</span>
+            <span>Rs. {(total + shipping).toFixed(2)}</span>
+          </div>
+          <button
+            className={`mt-4 w-full py-2 rounded-md text-white ${
+              cart.orderedItems.length === 0
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-accent hover:bg-accent-dark"
+            }`}
+            onClick={handleBookingCreation}
+            disabled={cart.orderedItems.length === 0}
+          >
+            Go to Booking
+          </button>
+        </div>
       </div>
     </div>
   );
