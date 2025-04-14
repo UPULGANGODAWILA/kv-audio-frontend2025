@@ -74,7 +74,7 @@ export default function LoginPage() {
       <form onSubmit={handleOnSubmit}>
         <div className="w-[400px] h-[400px] backdrop-blur-xl rounded-2xl flex justify-center items-center flex-col relative">
           <img
-            src="/logo.png"
+            src="/NewLogo.png"
             alt="logo"
             className="w-[100px] h-[100px] object-cover "
           />

@@ -29,7 +29,7 @@ export default function ChatBox() {
           className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2"
         >
           <MessageCircle className="w-5 h-5" />
-          <span className="font-medium">Chat</span>
+          <span className="font-medium">Live Chat</span>
         </button>
 
         {isOpen && (

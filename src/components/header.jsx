@@ -38,10 +38,17 @@ export default function Header() {
     <header className="w-full h-[70px] shadow-xl flex justify-between items-center px-4 bg-accent text-white relative">
       {/* Logo */}
       <img
-        src="/logo.png"
+        src="/NewLogo.png"
         alt="logo"
         className="w-[60px] h-[60px] object-cover border-[3px] border-white rounded-full"
+
       />
+     <div className="hidden md:flex items-center">
+        <h1 className="text-2xl font-extrabold font-serif text-white text-left">
+          KV Audio Enterprises
+        </h1>
+    </div>
+
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex space-x-6 text-[20px] items-center">

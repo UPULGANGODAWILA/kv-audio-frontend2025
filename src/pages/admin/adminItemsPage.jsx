@@ -94,7 +94,7 @@ export default function AdminItemsPage() {
 										<button 
                                             onClick={()=>{
                                                 navigate(`/admin/items/edit`, {state:product} )
-                                            }} className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
+                                            }} className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">
 											<FaEdit className="inline mr-1" /> Edit
 										</button>
 
