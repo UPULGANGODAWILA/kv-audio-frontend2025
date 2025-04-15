@@ -32,14 +32,16 @@ export default function ProductOverview() {
             )}
 
             {loadingStatus === "loaded" && (
-                <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6 md:flex">
+                <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6 md:flex md:gap-6">
                     {/* Left - Image */}
-                    <div className="md:w-1/2 flex justify-center">
-                        <ImageSlider images={product.image} />
+                    <div className="md:w-1/2 flex justify-center items-center">
+                        <div className="w-full max-w-md h-full">
+                            <ImageSlider images={product.image} />
+                        </div>
                     </div>
 
                     {/* Right - Product Details */}
-                    <div className="md:w-1/2 flex flex-col items-center text-center md:text-left md:items-start p-4">
+                    <div className="md:w-1/2 flex flex-col justify-center items-center text-center md:text-left md:items-start p-4">
                         <h1 className="text-2xl md:text-3xl font-bold text-accent">{product.name}</h1>
                         <h2 className="text-lg md:text-xl font-semibold text-gray-700">{product.category} Category</h2>
                         <p className="text-gray-600 mt-2">{product.description}</p>
@@ -71,3 +73,4 @@ export default function ProductOverview() {
         </div>
     );
 }
+

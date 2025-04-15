@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaFacebookF, FaWhatsapp } from 'react-icons/fa';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,19 +15,18 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     toast.success('Message sent successfully!');
-
     setFormData({ name: '', email: '', message: '' });
   };
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-4 flex flex-col items-center">
-      <div className="bg-white w-full max-w-5xl rounded-xl shadow-lg overflow-hidden flex flex-col lg:flex-row">
+      <div className="bg-white w-full max-w-5xl rounded-xl shadow-lg overflow-hidden flex flex-col lg:flex-row lg:gap-4">
+        
         {/* Contact Info */}
         <div className="bg-indigo-600 text-white w-full lg:w-1/2 p-8 space-y-6">
-          <h2 className="text-3xl font-bold">Get in Touch</h2>
-          <p className="text-indigo-100">
+          <h2 className="text-3xl font-bold text-center lg:text-left">Get in Touch</h2>
+          <p className="text-indigo-100 text-center lg:text-left">
             We’d love to hear from you. Reach out to us using the info below or send a message directly.
           </p>
 
@@ -49,7 +49,27 @@ export default function Contact() {
 
           <div>
             <h4 className="font-semibold">📧 Email</h4>
-            <p className="text-indigo-100">upulkgangodawila1981.com</p>
+            <p className="text-indigo-100">upulkgangodawila1981@gmail.com</p>
+          </div>
+
+          {/* Social Media Links */}
+          <div className="flex gap-4 pt-4">
+            <a
+              href="https://www.facebook.com/yourpage"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-indigo-600 p-2 rounded-full hover:bg-indigo-100 transition"
+            >
+              <FaFacebookF size={20} />
+            </a>
+            <a
+              href="https://wa.me/94779619005"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-green-600 p-2 rounded-full hover:bg-green-100 transition"
+            >
+              <FaWhatsapp size={20} />
+            </a>
           </div>
         </div>
 
@@ -107,7 +127,7 @@ export default function Contact() {
       </div>
 
       {/* Google Map */}
-      <div className="w-full max-w-5xl h-64 sm:h-80 md:h-96 mt-10 rounded-xl overflow-hidden shadow-lg">
+      <div className="w-full max-w-5xl h-64 sm:h-80 md:h-96 lg:h-[500px] mt-10 rounded-xl overflow-hidden shadow-lg">
         <iframe
           title="Google Map"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63309.92729860537!2d79.8803445!3d6.7155176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae243e536edfbad%3A0x62042f4475ddf9a7!2sCargills%20Square%20Panadura!5e0!3m2!1sen!2slk!4v1712563885596!5m2!1sen!2slk"

@@ -7,6 +7,8 @@ import Contact from "./contact";
 import ErrorNotFound from "./error";
 import ProductOverview from "./productOverview.jsx";
 import BookingPage from "./bookingPage";
+
+
 export default function HomePage(){
   return(
     <>

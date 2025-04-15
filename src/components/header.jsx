@@ -44,7 +44,7 @@ export default function Header() {
 
       />
      <div className="hidden md:flex items-center">
-        <h1 className="text-2xl font-extrabold font-serif text-white text-left">
+        <h1 className="text-xl font-extrabold font-serif text-white text-left">
           KV Audio Enterprises
         </h1>
     </div>

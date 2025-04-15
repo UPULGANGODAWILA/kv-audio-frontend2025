@@ -1,14 +1,16 @@
+import React from "react";
 import ChatBox from "./chatBox";
-export default function Home(){
+import Homemain from "./homemain";
 
-    return(
-      <div>
-        <h1>Home</h1>
-        <>
-        <ChatBox />
-        </>
-      </div>
-    )
-  }
+export default function Home() {
+  return (
+    <div>
+   
+      <Homemain />
+      <ChatBox />
+    </div>
+  );
+}
+
 
   
