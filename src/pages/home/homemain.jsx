@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 export default function Homemain() {
   return (
@@ -36,6 +37,7 @@ export default function Homemain() {
           </motion.p>
 
           {/* Animated Button */}
+          <Link to="/items">
           <motion.button
             className="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition"
             initial={{ opacity: 0, y: 30 }}
@@ -44,6 +46,7 @@ export default function Homemain() {
           >
             Book Now
           </motion.button>
+          </Link>
         </div>
       </div>
     </div>

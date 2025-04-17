@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import ProductCard from "../../components/ProductCard";
 
 export default function Items() {
-  const [state, setState] = useState("loading"); // loading, success, error
+  const [state, setState] = useState("loading");
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [isRetrying, setIsRetrying] = useState(false);
@@ -15,7 +15,6 @@ export default function Items() {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/api/products`)
         .then((res) => {
-          console.log(res.data);
           setItems(res.data);
           setFilteredItems(res.data);
           setState("success");
@@ -39,18 +38,18 @@ export default function Items() {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center pt-16 px-4">
+    <div className="w-full min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 flex flex-col items-center pt-20 px-6">
       {/* Loading State */}
       {state === "loading" && (
-        <div className="w-full flex justify-center items-center py-10">
-          <div className="w-12 h-12 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin"></div>
+        <div className="w-full flex justify-center items-center py-20">
+          <div className="w-14 h-14 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
         </div>
       )}
 
       {/* Error State */}
       {state === "error" && (
-        <div className="w-full flex flex-col items-center py-15 text-center">
-          <p className="text-red-500 text-lg font-semibold mb-4">
+        <div className="w-full flex flex-col items-center py-16 text-center">
+          <p className="text-red-600 text-xl font-semibold mb-4">
             Failed to load products.
           </p>
           <button
@@ -58,7 +57,7 @@ export default function Items() {
               setIsRetrying(true);
               setState("loading");
             }}
-            className="px-5 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition 
+            className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition 
               disabled:bg-gray-400 disabled:cursor-not-allowed"
             disabled={isRetrying}
           >
@@ -71,24 +70,24 @@ export default function Items() {
       {state === "success" && (
         <div className="w-full max-w-7xl">
           {/* Search Bar */}
-          <div className="w-full flex justify-center mb-6 px-4">
+          <div className="w-full flex justify-center mb-8">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="🔍 Search products..."
               value={searchQuery}
               onChange={handleSearch}
-              className="w-full sm:w-1/2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full sm:w-2/3 md:w-1/2 p-4 rounded-xl shadow-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
             />
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-2">
             {filteredItems.length > 0 ? (
               filteredItems.map((item) => (
                 <ProductCard key={item.key} item={item} />
               ))
             ) : (
-              <p className="col-span-full text-center text-gray-500">
+              <p className="col-span-full text-center text-gray-600 text-lg">
                 No matching products found.
               </p>
             )}
