@@ -8,6 +8,7 @@ import UpdateItemPage from "./updateItemPage.jsx";
 import AdminUsersPage from "../../pages/admin/adminUsersPage.jsx";
 import AdminBookingPage from "./adminBookingPage.jsx";
 
+
 export default function AdminPage() {
   return (
     <div className="w-full h-screen flex bg-gray-100">
@@ -46,6 +47,7 @@ export default function AdminPage() {
           <Route path="/items" element={<AdminItemspage />} />
           <Route path="/items/add" element={<AddItemPage />} />
           <Route path="/items/edit" element={<UpdateItemPage />} />
+        
         </Routes>
       </div>
     </div>

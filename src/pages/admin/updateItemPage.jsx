@@ -104,8 +104,8 @@ export default function UpdateItemPage() {
             placeholder="Product Description"
             value={productDescription}
             onChange={(e) => setProductDescription(e.target.value)}
-            rows={4}
-            className="w-full p-3 border border-gray-300 rounded-lg"
+            rows={6}
+            className="w-full p-3 border border-gray-300 rounded-lg h-20"
           />
           <input
             type="file"

@@ -145,7 +145,7 @@ export default function BookingPage() {
             onClick={handleBookingCreation}
             disabled={cart.orderedItems.length === 0}
           >
-            Go to Booking
+            Conform the Booking
           </button>
         </div>
       </div>

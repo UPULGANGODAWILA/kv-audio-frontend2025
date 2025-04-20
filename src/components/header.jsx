@@ -21,34 +21,32 @@ export default function Header() {
     };
 
     updateCartCount();
-
-    // Update count every second to reflect cart changes in real-time
     const interval = setInterval(updateCartCount, 1000);
     return () => clearInterval(interval);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("cart"); // Clear cart on logout
-    setCartCount(0); // Reset UI count
+    localStorage.removeItem("cart");
+    setCartCount(0);
     window.location.href = "/login";
   };
 
   return (
-    <header className="w-full h-[70px] shadow-xl flex justify-between items-center px-4 bg-accent text-white relative">
+    <header className="w-full h-[70px] shadow-xl flex justify-between items-center px-4 bg-accent text-white fixed top-0 left-0 z-50">
       {/* Logo */}
       <img
         src="/NewLogo.png"
         alt="logo"
         className="w-[60px] h-[60px] object-cover border-[3px] border-white rounded-full"
-
       />
-     <div className="hidden md:flex items-center">
+
+      {/* Logo Text */}
+      <div className="hidden md:flex items-center">
         <h1 className="text-xl font-extrabold font-serif text-white text-left">
           KV Audio Enterprises
         </h1>
-    </div>
-
+      </div>
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex space-x-6 text-[20px] items-center">
@@ -84,7 +82,6 @@ export default function Header() {
           </button>
         )}
 
-        {/* Cart */}
         <Link
           to="/booking"
           className="border px-4 py-1 rounded hover:bg-white hover:text-black flex items-center gap-2"
