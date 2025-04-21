@@ -1,7 +1,7 @@
 import React from "react";
 import ChatBox from "./chatBox";
 import Homemain from "./homemain";
-import ReviewPage from "./ReviewPage";
+import ReviewPage from "./ReviewsPage";
 
 export default function Home() {
   return (

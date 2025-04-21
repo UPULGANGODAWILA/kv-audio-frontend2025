@@ -8,9 +8,8 @@
   import Testing from "./components/testing";
   import { GoogleOAuthProvider } from "@react-oauth/google";
   import VerifyEmail from "./pages/verifyEmail/verifyEmail";
-import AdminDashboard from "./pages/admin/adminReviews.jsx";
-
-
+  import AdminDashboard from "./pages/admin/adminReviews.jsx";
+  
   function App() {
     return (
     <GoogleOAuthProvider clientId="13905091148-1jmgglbedli5mdutc1f0d18v94a7iri2.apps.googleusercontent.com" >
@@ -19,6 +18,7 @@ import AdminDashboard from "./pages/admin/adminReviews.jsx";
         <Routes path="/*">
         <Route path="/testing" element={<Testing/>}/>
         <Route path="/admin/*" element={<AdminPage/>}/>
+       
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/verify-email" element={<VerifyEmail/>}/>

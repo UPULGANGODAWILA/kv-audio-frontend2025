@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 
+/*************  ✨ Windsurf Command ⭐  *************/
+/**
+ * Renders a gallery of images with a grid layout. Each image can be viewed in a larger modal
+ * when clicked. The modal provides a close button to return to the grid view.
+ *
+ * The gallery consists of a collection of predefined images. Hovering over an image in the grid
+ * slightly enlarges it, providing a visual cue that it is interactive.
+ *
+/*******  3a5b26d7-d6b6-4d3a-8708-c1727d924b02  *******/
 export default function Gallery() {
   const images = [
     "/01.jpg",
